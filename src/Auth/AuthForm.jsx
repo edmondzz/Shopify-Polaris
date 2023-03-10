@@ -52,21 +52,38 @@ function AuthForm() {
 const handleFormSubmit = (event) => {
   event.preventDefault();
 
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(formState.email, formState.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(`User logged in: ${user.email}`);
-      setIsLoggedIn(true);
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('lastLocation', location.pathname); // store last location in local storage
-      history.push('/dashboard');
-    })
-    .catch((error) => {
-      console.error(`Error logging in user: ${error}`);
-      setErrorMessage('Incorrect email or password. Please try again.'); // set error message
-    });
+  if (isLoginForm) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(formState.email, formState.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(`User logged in: ${user.email}`);
+        setIsLoggedIn(true);
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('lastLocation', location.pathname); // store last location in local storage
+        history.push('/dashboard');
+      })
+      .catch((error) => {
+        console.error(`Error logging in user: ${error}`);
+        setErrorMessage('Invalid email or password. Please try again.')
+      });
+  } else {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(formState.email, formState.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(`User registered: ${user.email}`);
+        setIsLoggedIn(true);
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('lastLocation', location.pathname);
+        history.push('/');
+      })
+      .catch((error) => {
+        console.error(`Error registering user: ${error}`);
+      });
+  }
 };
 
   return (
