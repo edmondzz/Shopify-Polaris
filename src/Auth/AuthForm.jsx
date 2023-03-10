@@ -7,13 +7,13 @@ import Dashboard from './Dashboard';
 import './Authform.css';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAKNd8MkSaFvlbCJ90lf8AE2nnEO8h1dSY",
-  authDomain: "polaris-shopify.firebaseapp.com",
-  projectId: "polaris-shopify",
-  storageBucket: "polaris-shopify.appspot.com",
-  messagingSenderId: "380340910572",
-  appId: "1:380340910572:web:4afd14eb84743baf06e8c9",
-  measurementId: "G-BRHD9RT3D4"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId:process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId:process.env.REACT_APP_APP_ID,
+  measurementId:process.env.REACT_APP_MEASUREMENT_ID
 };
 
 
